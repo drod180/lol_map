@@ -26,7 +26,7 @@ import LanguageProvider from 'containers/LanguageProvider';
 /* eslint-disable import/no-unresolved, import/extensions */
 import '!file-loader?name=[name].[ext]!./images/favicon.ico';
 import '!file-loader?name=[name].[ext]!./images/MapofValoran.jpg';
-import '!file-loader?name=[name].[ext]!./images/OrnnSquare.png';
+import '!file-loader?name=[name].[ext]!./images/Ornn_Icon.png';
 import '!file-loader?name=[name].[ext]!./manifest.json';
 import 'file-loader?name=[name].[ext]!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
