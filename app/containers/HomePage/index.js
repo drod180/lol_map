@@ -28,7 +28,6 @@ import MapImage from 'components/MapImage';
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    console.log(this.props);
     return (
       <article>
         <Helmet>

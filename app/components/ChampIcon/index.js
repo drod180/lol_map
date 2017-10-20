@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Img from './Img';
-import Ornn from '../../images/Ornn_Icon.png';
 
 function importAll(r) {
   let images = {};
@@ -13,9 +12,7 @@ const images = importAll(require.context('../../images/', false, /(_Icon)\.(png|
 
 function ChampIcon(props) {
   return (
-    <div>
-      <Img src={images[props.src]} alt="champion - icon"/>
-    </div>
+    <Img src={images[props.src]} alt="champion - icon" />
   );
 }
 

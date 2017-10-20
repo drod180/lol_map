@@ -7,7 +7,6 @@ const Img = styled(CircleImg)`
   height: 4em;
   border-radius: 50%;
   margin: 0 auto;
-  display: block;
 `;
 
 export default Img;

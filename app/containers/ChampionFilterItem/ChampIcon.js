@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
-import NormalChampIcon from 'components/ChampIcon';
+import CompImg from 'components/ChampIcon';
 
-const ChampIcon = styled(NormalChampIcon)`
+const ChampIcon = styled(CompImg)`
   border-width: 1px;
   border-color: black;
   border-style: solid;
+  display: flex;
 `;
 
 export default ChampIcon;
