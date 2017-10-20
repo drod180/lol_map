@@ -11,22 +11,22 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { FormattedMessage } from 'react-intl';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+// import { FormattedMessage } from 'react-intl';
 
+
+import ChampFilterItem from 'containers/ChampFilterItem';
 import { makeSelectChampions } from 'containers/App/selectors';
 import MapImage from 'components/MapImage';
-import ChampFilterItem from 'containers/ChampFilterItem';
+
 // import messages from './messages';
 // import reducer from './reducer';
 // import { loadChampions } from '../App/actions';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  componentDidMount() {
-  }
 
   render() {
     return (
@@ -38,9 +38,11 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         <div>
           <MapImage />
         </div>
-        {/* <div>
-          <ChampFilterItem item={this.props.champions} />
-        </div> */}
+        <div>
+          <p>{`${this.state}`}</p>
+          <ChampFilterItem item={{name: 'Ornn'}} />
+        </div>
+        <p>{'test'}</p>
       </article>
     );
   }
@@ -50,15 +52,6 @@ HomePage.propTypes = {
   champions: PropTypes.array,
 };
 
-export function mapDispatchToProps() {
-}
-
-const mapStateToProps = createStructuredSelector({
+export default connect(createStructuredSelector({
   champions: makeSelectChampions(),
-});
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-export default compose(
-  withConnect,
-)(HomePage);
+}))(HomePage);
