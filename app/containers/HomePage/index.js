@@ -40,7 +40,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         </div>
         <div>
           <p>{`${this.state}`}</p>
-          <ChampFilterItem item={{name: 'Ornn'}} />
+          <ChampFilterItem item={{ name: 'Aatrox' },{ name: 'Ornn'}} />
         </div>
         <p>{'test'}</p>
       </article>

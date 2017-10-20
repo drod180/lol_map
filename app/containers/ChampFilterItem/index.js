@@ -19,7 +19,7 @@ export class ChampFilterItem extends React.PureComponent { // eslint-disable-lin
     // Put together the content of the champion icon
     const content = (
       <Wrapper>
-        <Icon src={`../../images/${item.name}_Icon.png`} />
+        <Icon src={`${item.name}_Icon.png`} />
       </Wrapper>
     );
 
