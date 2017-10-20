@@ -17,7 +17,6 @@ import {
 
 // The initial state of the App
 const initialState = fromJS({
-  champions: [],
 });
 
 function homeReducer(state = initialState, action) {

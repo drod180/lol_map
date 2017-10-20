@@ -17,9 +17,8 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 // import { FormattedMessage } from 'react-intl';
 
-
-import ChampFilterItem from 'containers/ChampFilterItem';
 import { makeSelectChampions } from 'containers/App/selectors';
+import ChampionsList from 'components/ChampionsList';
 import MapImage from 'components/MapImage';
 
 // import messages from './messages';
@@ -29,6 +28,7 @@ import MapImage from 'components/MapImage';
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
+    console.log(this.props);
     return (
       <article>
         <Helmet>
@@ -39,10 +39,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           <MapImage />
         </div>
         <div>
-          <p>{`${this.state}`}</p>
-          <ChampFilterItem item={{ name: 'Aatrox' },{ name: 'Ornn'}} />
+          <ChampionsList champions={this.props.champions} />
         </div>
-        <p>{'test'}</p>
       </article>
     );
   }
