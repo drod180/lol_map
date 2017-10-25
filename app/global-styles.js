@@ -27,4 +27,12 @@ injectGlobal`
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
   }
+
+  .champ-icon-button {
+    outline: none;
+  }
+
+  .champ-icon-button:focus img {
+    border: 3px solid #E59700;
+  }
 `;

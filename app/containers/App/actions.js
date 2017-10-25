@@ -16,17 +16,19 @@
  */
 
 import {
-  LOAD_CHAMPIONS,
+  TOGGLE_FILTER_ICON,
 } from './constants';
 
 /**
- * Load the champions, this action sets up the champions state
+ * Toggles the filter champion icon
  *
- * @return {object} An action object with a type of LOAD_CHAMPIONS
+ * @param  {id} id of the icon to be filtered
+ *
+ * @return {object} An action object with a type of TOGGLE_FILTER_ICON
  */
-export function loadChampions(champions) {
+export function toggleChampionSelect(id) {
   return {
-    type: LOAD_CHAMPIONS,
-    champions,
+    type: TOGGLE_FILTER_ICON,
+    id,
   };
 }
