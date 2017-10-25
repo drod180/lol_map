@@ -20,7 +20,7 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectChampions } from 'containers/App/selectors';
 import ChampionsList from 'components/ChampionsList';
 import MapImage from 'components/MapImage';
-
+import MapSectionContainer from 'components/MapSectionContainer';
 // import messages from './messages';
 // import reducer from './reducer';
 // import { loadChampions } from '../App/actions';
@@ -34,8 +34,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           <title>League of Legends - Lore Map</title>
           <meta name="description" content="A runeaterra map" />
         </Helmet>
-        <div>
+        <div className={'map-container'}>
           <MapImage />
+          <MapSectionContainer />
         </div>
         <div>
           <ChampionsList champions={this.props.champions} />

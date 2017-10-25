@@ -6,7 +6,7 @@ import WorldMap from '../../images/MapofValoran.jpg';
 class MapImage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
+      <div className={'map-image'} >
         <Img src={WorldMap} alt="map of valaron" />
       </div>
     );
