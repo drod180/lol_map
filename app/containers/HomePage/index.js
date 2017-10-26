@@ -20,7 +20,8 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectChampions } from 'containers/App/selectors';
 import ChampionsList from 'components/ChampionsList';
 import MapImage from 'components/MapImage';
-import MapSectionContainer from 'components/MapSectionContainer';
+import ChampionMapItem from 'containers/ChampionMapItem';
+
 // import messages from './messages';
 // import reducer from './reducer';
 // import { loadChampions } from '../App/actions';
@@ -36,10 +37,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         </Helmet>
         <div className={'map-container'}>
           <MapImage />
-          <MapSectionContainer />
         </div>
         <div>
           <ChampionsList champions={this.props.champions} />
+        </div>
+        <div>
+          <ChampionMapItem />
         </div>
       </article>
     );
