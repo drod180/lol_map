@@ -9,5 +9,5 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const TOGGLE_FILTER_ICON = 'TOGGLE_FILTER_ICON';
+export const TOGGLE_FILTER_ICON = 'lol_map/App/TOGGLE_FILTER_ICON';
 export const DEFAULT_LOCALE = 'en';

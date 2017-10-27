@@ -40,5 +40,5 @@ export function stopIcons() {
 export function startIcons() {
   return {
     type: START_ICONS,
-  }
+  };
 }

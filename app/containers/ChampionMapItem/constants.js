@@ -9,6 +9,7 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const CREATE_ICONS = 'CREATE_ICONS';
-export const START_ICONS = 'START_ICONS';
-export const STOP_ICONS = 'STOP_ICONS';
+export const CREATE_ICONS = 'lol_map/Map/CREATE_ICONS';
+export const START_ICONS = 'lol_map/Map/START_ICONS';
+export const STOP_ICONS = 'lol_map/Map/STOP_ICONS';
+export const TIME_TICK = 'lol_map/Map/TIME_TICK';

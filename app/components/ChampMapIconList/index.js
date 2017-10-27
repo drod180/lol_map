@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 
 import ChampMapIcon from 'components/ChampMapIcon';
 
-const ChampMapIconList = ({ props }) => (
-  <g>{ props.champMapIcons=icons.map(icon => { <ChampMapIcon key={`champ-map-icon-${icon.id}` } { ...icon } /> }) }</g>
-);
+function ChampMapIconList(props) {
+  const content = props.champMapIcons.map((icon) => (<ChampMapIcon key={`champ-map-icon-${icon.id}`} x={icon.x} y={icon.y} />));
 
-ChampMapIcons.propTypes = {
-  champMapIcons: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-  }).isRequired).isRequired,
+  return (
+    <g>
+      {content}
+    </g>
+  );
+}
+
+ChampMapIconList.propTypes = {
+  champMapIcons: PropTypes.array.isRequired,
 };
+
+export default ChampMapIconList;

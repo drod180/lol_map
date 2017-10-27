@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ChampMapIcon = ({x, y}) => (
-  <circle cx={x} cy={y} r="2" />
-);
+function ChampMapIcon(props) {
+  return <circle cx={props.x} cy={props.y} r="2" />;
+}
 
-ChampMapIcon.prop-types = {
+ChampMapIcon.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
 };
