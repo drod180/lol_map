@@ -17,9 +17,15 @@ const makeSelectMapIcons = () => createSelector(
   (mapState) => mapState.get('icons')
 );
 
+const makeSelectIconsMoving = () => createSelector(
+  selectMap,
+  (mapState) => mapState.get('moving')
+);
+
 export {
   selectMap,
   makeSelectMapIcons,
   makeSelectMapWidth,
   makeSelectMapHeight,
+  makeSelectIconsMoving,
 };

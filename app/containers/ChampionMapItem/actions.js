@@ -17,6 +17,7 @@
 
 import {
   CREATE_ICONS,
+  MOVE_ICONS,
   START_ICONS,
   STOP_ICONS,
 } from './constants';
@@ -28,6 +29,11 @@ export function createIcons(num, x, y) {
     num,
     x,
     y,
+  };
+}
+export function moveIcons() {
+  return {
+    type: MOVE_ICONS,
   };
 }
 

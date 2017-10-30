@@ -12,4 +12,4 @@
 export const CREATE_ICONS = 'lol_map/Map/CREATE_ICONS';
 export const START_ICONS = 'lol_map/Map/START_ICONS';
 export const STOP_ICONS = 'lol_map/Map/STOP_ICONS';
-export const TIME_TICK = 'lol_map/Map/TIME_TICK';
+export const MOVE_ICONS = 'lol_map/Map/MOVE_ICONS';

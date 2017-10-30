@@ -7,8 +7,8 @@ import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import ChampMapIconList from 'components/ChampMapIconList';
-import { createIcons, startIcons, stopIcons } from './actions';
-import { makeSelectMapIcons, makeSelectMapWidth, makeSelectMapHeight } from './selectors';
+import { createIcons, moveIcons, stopIcons, startIcons } from './actions';
+import { makeSelectMapIcons, makeSelectMapWidth, makeSelectMapHeight, makeSelectIconsMoving } from './selectors';
 import reducer from './reducer';
 
 export class ChampionMapItem extends React.PureComponent {
@@ -18,24 +18,54 @@ export class ChampionMapItem extends React.PureComponent {
     this.props.createIcons();
 
     svg.on('mousedown', () => {
-      this.props.startIcons();
+      this.startTicker();
     });
-
-    svg.on('touchstart', () => {
-      this.props.startIcons();
-    });
-
+    //
+    // svg.on('touchstart', () => {
+    //   this.props.moveIcons();
+    // });
+    //
     svg.on('mouseup', () => {
-      this.props.stopIcons();
+      this.stopTicker();
     });
+    //
+    // svg.on('touchend', () => {
+    //   this.props.stopIcons();
+    // });
+    //
+    // svg.on('mouseleave', () => {
+    //   this.props.stopIcons();
+    // });
+  }
 
-    svg.on('touchend', () => {
-      this.props.stopIcons();
-    });
+  componentWillUnmount() {
+    this.stopTicker();
+  }
 
-    svg.on('mouseleave', () => {
+  animationFrameId = 0;
+
+  startTicker() {
+    const ticker = () => {
+      if (this.props.iconsMoving) {
+        this.props.moveIcons();
+        this.animationFrameId = window.requestAnimationFrame(ticker);
+      }
+    };
+
+    if (!this.props.iconsMoving) {
+      this.props.startIcons();
+      ticker();
+    } else {
+      ticker();
+    }
+  }
+
+  stopTicker() {
+    if (this.props.iconsMoving) {
       this.props.stopIcons();
-    });
+    }
+
+    window.cancelAnimationFrame(this.animationFrameId);
   }
 
   render() {
@@ -64,16 +94,19 @@ ChampionMapItem.propTypes = {
   champMapIcons: PropTypes.object.isRequired,
   mapWidth: PropTypes.number.isRequired,
   mapHeight: PropTypes.number.isRequired,
+  moveIcons: PropTypes.func.isRequired,
   startIcons: PropTypes.func.isRequired,
   stopIcons: PropTypes.func.isRequired,
+  iconsMoving: PropTypes.bool.isRequired,
   createIcons: PropTypes.func.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     createIcons: () => dispatch(createIcons(10, 10, 10)),
-    startIcons: () => dispatch(startIcons()),
+    moveIcons: () => dispatch(moveIcons()),
     stopIcons: () => dispatch(stopIcons()),
+    startIcons: () => dispatch(startIcons()),
   };
 }
 
@@ -81,6 +114,7 @@ const mapStateToProps = createStructuredSelector({
   champMapIcons: makeSelectMapIcons(),
   mapWidth: makeSelectMapWidth(),
   mapHeight: makeSelectMapHeight(),
+  iconsMoving: makeSelectIconsMoving(),
 });
 
 const withReducer = injectReducer({ key: 'map', reducer });
