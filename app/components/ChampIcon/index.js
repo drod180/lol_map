@@ -27,7 +27,6 @@ function ChampIcon(props) {
 ChampIcon.propTypes = {
   src: PropTypes.string,
   selected: PropTypes.bool,
-  onClick: PropTypes.func,
 };
 
 export default ChampIcon;

@@ -7,9 +7,11 @@ import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import ChampMapIconList from 'components/ChampMapIconList';
+import MapImage from 'components/MapImage';
 import { createIcons, moveIcons, stopIcons, startIcons } from './actions';
 import { makeSelectMapIcons, makeSelectMapWidth, makeSelectMapHeight, makeSelectIconsMoving } from './selectors';
 import reducer from './reducer';
+
 
 export class ChampionMapItem extends React.PureComponent {
   componentDidMount() {
@@ -20,22 +22,10 @@ export class ChampionMapItem extends React.PureComponent {
     svg.on('mousedown', () => {
       this.startTicker();
     });
-    //
-    // svg.on('touchstart', () => {
-    //   this.props.moveIcons();
-    // });
-    //
+
     svg.on('mouseup', () => {
       this.stopTicker();
     });
-    //
-    // svg.on('touchend', () => {
-    //   this.props.stopIcons();
-    // });
-    //
-    // svg.on('mouseleave', () => {
-    //   this.props.stopIcons();
-    // });
   }
 
   componentWillUnmount() {
@@ -71,20 +61,31 @@ export class ChampionMapItem extends React.PureComponent {
   render() {
     const champMapIcons = this.props.champMapIcons.toJS();
 
+    for (let i = 0; i < champMapIcons.length; i += 1) {
+      champMapIcons[i] = {
+        ...champMapIcons[i],
+        champions: this.props.champions[i],
+      };
+    }
+
     return (
       <div
         role="presentation"
         tabIndex={-1}
-        style={{ overflow: 'hidden' }}
+        style={{ overflow: 'hidden', height: this.props.mapHeight, width: this.props.mapWidth }}
+        className="map-container"
       >
-        <svg
-          width={this.props.mapWidth}
-          height={this.props.mapHeight}
-          ref={(c) => { this.svg = c; }}
-          style={{ background: 'rgba(124, 224, 249, .3)' }}
-        >
-          <ChampMapIconList champMapIcons={champMapIcons} />
-        </svg>
+        <MapImage />
+        <div className="map-items">
+          <svg
+            width={this.props.mapWidth}
+            height={this.props.mapHeight}
+            ref={(c) => { this.svg = c; }}
+            style={{ background: 'rgba(255, 255, 255, 0)' }}
+          >
+            <ChampMapIconList champMapIcons={champMapIcons} champions={this.props.champions} />
+          </svg>
+        </div>
       </div>
     );
   }
@@ -99,11 +100,12 @@ ChampionMapItem.propTypes = {
   stopIcons: PropTypes.func.isRequired,
   iconsMoving: PropTypes.bool.isRequired,
   createIcons: PropTypes.func.isRequired,
+  champions: PropTypes.array.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
-    createIcons: () => dispatch(createIcons(10, 10, 10)),
+    createIcons: () => dispatch(createIcons(134, -10, -10)),
     moveIcons: () => dispatch(moveIcons()),
     stopIcons: () => dispatch(stopIcons()),
     startIcons: () => dispatch(startIcons()),

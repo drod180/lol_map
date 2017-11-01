@@ -36,10 +36,10 @@ injectGlobal`
     border: 3px solid #E59700;
   }
 
-  .map-container, .map-image {
+  .map-container, .map-filter{
     position: relative;
   }
-  .map-section {
+  .map-image, .map-items {
     position: absolute;
   }
 
