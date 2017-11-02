@@ -43,6 +43,10 @@ injectGlobal`
     position: absolute;
   }
 
+  .map-image {
+    width: 100%;
+  }
+
   .map-section-top-left {
     width: 5%;
     height: 5%;

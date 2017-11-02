@@ -20,8 +20,6 @@ function ChampMapIcon(props) {
     <Image
       x={props.x}
       y={props.y}
-      width="6"
-      height="6"
       src={images[props.src]}
     >
     </Image>

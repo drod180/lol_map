@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-import CircleImg from 'components/Image';
+import svgImage from 'components/Image';
 
-const Image = styled(CircleImg)`
-  width: 1em;
-  height: 1em;
+const Image = styled(svgImage)`
+  width: 3%;
+  height: 3%;
 `;
 
 export default Image;

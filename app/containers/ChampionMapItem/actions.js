@@ -20,6 +20,7 @@ import {
   MOVE_ICONS,
   START_ICONS,
   STOP_ICONS,
+  UPDATE_DIMS,
 } from './constants';
 
 
@@ -31,6 +32,7 @@ export function createIcons(num, x, y) {
     y,
   };
 }
+
 export function moveIcons() {
   return {
     type: MOVE_ICONS,
@@ -46,5 +48,13 @@ export function stopIcons() {
 export function startIcons() {
   return {
     type: START_ICONS,
+  };
+}
+
+export function updateDimensions(width, height) {
+  return {
+    type: UPDATE_DIMS,
+    width,
+    height,
   };
 }

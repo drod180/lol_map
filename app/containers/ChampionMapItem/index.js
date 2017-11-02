@@ -17,7 +17,7 @@ export class ChampionMapItem extends React.PureComponent {
   componentDidMount() {
     const svg = d3.select(this.svg);
 
-    this.props.createIcons();
+    this.props.createIcons(134, -100, -100);
 
     svg.on('mousedown', () => {
       this.startTicker();
@@ -67,7 +67,6 @@ export class ChampionMapItem extends React.PureComponent {
         champions: this.props.champions[i],
       };
     }
-
     return (
       <div
         role="presentation"
@@ -105,7 +104,7 @@ ChampionMapItem.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    createIcons: () => dispatch(createIcons(134, -10, -10)),
+    createIcons: (num, x, y) => dispatch(createIcons(num, x, y)),
     moveIcons: () => dispatch(moveIcons()),
     stopIcons: () => dispatch(stopIcons()),
     startIcons: () => dispatch(startIcons()),

@@ -16,6 +16,7 @@ import {
   MOVE_ICONS,
   STOP_ICONS,
   START_ICONS,
+  UPDATE_DIMS,
 } from './constants';
 
 // The initial state of the App
@@ -62,6 +63,7 @@ function mapReducer(state = initialState, action) {
       const immutIcons = fromJS(newIcons);
       return state.update('icons', (arr) => arr.concat(immutIcons));
     }
+
     case MOVE_ICONS: {
       const newFrameTime = new Date();
       const multiplier = (newFrameTime - state.get('lastFrameTime')) / (1000 / 60);
@@ -76,15 +78,19 @@ function mapReducer(state = initialState, action) {
         return icon.set('x', newX).set('y', newY).set('vector', [vx, vy]);
       });
 
-
       return state.set('icons', icons).set('lastFrameTime', new Date());
     }
-    case STOP_ICONS:
 
+    case STOP_ICONS:
       return state.set('moving', false);
+
     case START_ICONS: {
       return state.set('moving', true).set('lastFrameTime', new Date());
     }
+
+    case UPDATE_DIMS:
+      return state.set('width', action.width).set('height', action.height);
+
     default:
       return state;
   }
