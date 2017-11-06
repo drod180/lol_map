@@ -68,13 +68,14 @@ const getHomeCoords = (i, height, width) => {
   return [homeX, homeY];
 };
 
-const buildIcon = (id, homeCoords) => ({
+const buildIcon = (id, homeCoords, mapTarget) => ({
   id,
   x: homeCoords[0],
   y: homeCoords[1],
   vector: [0, 0],
   home: homeCoords,
-  target: [Math.random() * 100, Math.random() * 100],
+  mapTarget,
+  target: mapTarget,
   location: 'home',
 });
 
@@ -82,7 +83,7 @@ const checkLocation = (x, y, home, target) => {
   if (x === home[0] && y === home[1]) {
     return 'home';
   } else if (x === target[0] && y === target[1]) {
-    return 'target';
+    return 'map';
   }
 
   return 'moving';
@@ -96,7 +97,7 @@ function mapReducer(state = initialState, action) {
       for (let i = 0; i < action.champIds.length; i += 1) {
         if (!currentIcons.includes(action.champIds[i].id)) {
           const homeCoords = getHomeCoords(i, state.get('height'), state.get('width'));
-          const icon = buildIcon(action.champIds[i].id, homeCoords);
+          const icon = buildIcon(action.champIds[i].id, homeCoords, [Math.random() * 300, Math.random() * 300]);
           newIcons.push(icon);
         }
       }
@@ -156,12 +157,9 @@ function mapReducer(state = initialState, action) {
     case UPDATE_TARGET: {
       const [id, selected] = action.iconTarget;
 
-      const targetType = selected ? 'target' : 'home';
+      const targetType = selected ? 'mapTarget' : 'home';
       const index = state.get('icons').findIndex((icon) => (icon.get('id') === id));
       const target = state.getIn(['icons', index, targetType]);
-      console.log(target);
-      console.log(state.getIn(['icons', index, 'target']));
-      console.log(state.getIn(['icons', index]));
       return state.setIn(['icons', index, 'target'], target);
     }
     default:
