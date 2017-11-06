@@ -14,17 +14,15 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 // import { findDOMNode } from 'react-dom';
-// import { compose } from 'redux';
+import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-// import { FormattedMessage } from 'react-intl';
-
+import injectSaga from 'utils/injectSaga';
 import { makeSelectChampions } from 'containers/App/selectors';
 import ChampionsList from 'components/ChampionsList';
 import ChampionMapItem from 'containers/ChampionMapItem';
 import { updateDimensions } from 'containers/ChampionMapItem/actions';
-// import messages from './messages';
 // import reducer from './reducer';
-// import { loadChampions } from '../App/actions';
+import saga from './saga';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
@@ -76,4 +74,10 @@ const mapStateToProps = createStructuredSelector({
   champions: makeSelectChampions(),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+const withSaga = injectSaga({ key: 'home', saga });
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(
+  withSaga,
+  withConnect,
+)(HomePage);

@@ -16,9 +16,8 @@ import reducer from './reducer';
 export class ChampionMapItem extends React.PureComponent {
   componentDidMount() {
     const svg = d3.select(this.svg);
-
-    this.props.createIcons(134, -100, -100);
-
+    const champIds = this.props.champions.map((champ) => ({ id: champ.id }));
+    this.props.createIcons(champIds);
     svg.on('mousedown', () => {
       this.startTicker();
     });
@@ -67,6 +66,7 @@ export class ChampionMapItem extends React.PureComponent {
         champions: this.props.champions[i],
       };
     }
+
     return (
       <div
         role="presentation"
@@ -82,7 +82,7 @@ export class ChampionMapItem extends React.PureComponent {
             ref={(c) => { this.svg = c; }}
             style={{ background: 'rgba(255, 255, 255, 0)' }}
           >
-            <ChampMapIconList champMapIcons={champMapIcons} champions={this.props.champions} />
+            <ChampMapIconList champMapIcons={champMapIcons} />
           </svg>
         </div>
       </div>

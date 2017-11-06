@@ -21,15 +21,15 @@ import {
   START_ICONS,
   STOP_ICONS,
   UPDATE_DIMS,
+  UPDATE_HOME,
+  UPDATE_TARGET,
 } from './constants';
 
 
-export function createIcons(num, x, y) {
+export function createIcons(champIds) {
   return {
     type: CREATE_ICONS,
-    num,
-    x,
-    y,
+    champIds,
   };
 }
 
@@ -56,5 +56,18 @@ export function updateDimensions(width, height) {
     type: UPDATE_DIMS,
     width,
     height,
+  };
+}
+
+export function updateHomeCoords() {
+  return {
+    type: UPDATE_HOME,
+  };
+}
+
+export function updateTarget(iconTarget) {
+  return {
+    type: UPDATE_TARGET,
+    iconTarget,
   };
 }

@@ -17,13 +17,15 @@ import {
   STOP_ICONS,
   START_ICONS,
   UPDATE_DIMS,
+  UPDATE_HOME,
+  UPDATE_TARGET,
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
   icons: [],
-  width: 800,
-  height: 500,
+  width: 0,
+  height: 0,
   moving: false,
   lastFrameTime: null,
 });
@@ -46,22 +48,64 @@ const updateVelocity = (x, y, [tx, ty]) => {
   return [nx, ny];
 };
 
+const getHomeCoords = (i, height, width) => {
+  let homeX = 0;
+  let homeY = 0;
+  if (i % 4 === 0) {
+    homeX = i * 5;
+    homeY = -50;
+  } else if (i % 4 === 1) {
+    homeX = -50;
+    homeY = i * 5;
+  } else if (i % 4 === 2) {
+    homeX = width + 50;
+    homeY = i * 5;
+  } else {
+    homeX = i * 5;
+    homeY = height + 50;
+  }
+
+  return [homeX, homeY];
+};
+
+const buildIcon = (id, homeCoords) => ({
+  id,
+  x: homeCoords[0],
+  y: homeCoords[1],
+  vector: [0, 0],
+  home: homeCoords,
+  target: [Math.random() * 100, Math.random() * 100],
+  location: 'home',
+});
+
+const checkLocation = (x, y, home, target) => {
+  if (x === home[0] && y === home[1]) {
+    return 'home';
+  } else if (x === target[0] && y === target[1]) {
+    return 'target';
+  }
+
+  return 'moving';
+};
+
 function mapReducer(state = initialState, action) {
   switch (action.type) {
     case CREATE_ICONS: {
-      const iconLength = state.get('icons').size;
       const newIcons = [];
-      for (let i = 0; i < action.num; i += 1) {
-        const icon = { id: iconLength + 1 + i,
-          x: action.x,
-          y: action.y,
-          vector: [0, 0],
-          target: [Math.random() * state.get('width'), Math.random() * state.get('height')],
-        };
-        newIcons.push(icon);
+      const currentIcons = state.get('icons').map((icon) => (icon.get('id')));
+      for (let i = 0; i < action.champIds.length; i += 1) {
+        if (!currentIcons.includes(action.champIds[i].id)) {
+          const homeCoords = getHomeCoords(i, state.get('height'), state.get('width'));
+          const icon = buildIcon(action.champIds[i].id, homeCoords);
+          newIcons.push(icon);
+        }
       }
-      const immutIcons = fromJS(newIcons);
-      return state.update('icons', (arr) => arr.concat(immutIcons));
+      if (newIcons.length >= 1) {
+        const immutIcons = fromJS(newIcons);
+        return state.update('icons', (arr) => arr.concat(immutIcons));
+      }
+
+      return state;
     }
 
     case MOVE_ICONS: {
@@ -75,7 +119,8 @@ function mapReducer(state = initialState, action) {
         const y = icon.get('y');
         const newX = x + (vx * multiplier);
         const newY = y + (vy * multiplier);
-        return icon.set('x', newX).set('y', newY).set('vector', [vx, vy]);
+        const location = checkLocation(newX, newY, icon.get('home'), icon.get('target'));
+        return icon.set('x', newX).set('y', newY).set('vector', [vx, vy]).set('location', location);
       });
 
       return state.set('icons', icons).set('lastFrameTime', new Date());
@@ -91,6 +136,34 @@ function mapReducer(state = initialState, action) {
     case UPDATE_DIMS:
       return state.set('width', action.width).set('height', action.height);
 
+    case UPDATE_HOME: {
+      const height = state.get('height');
+      const width = state.get('width');
+      const icons = state.get('icons').map((icon, i) => {
+        const homeCoords = getHomeCoords(i, height, width);
+        let x = icon.get('x');
+        let y = icon.get('y');
+        if (icon.get('location') === 'home') {
+          x = homeCoords[0];
+          y = homeCoords[1];
+        }
+        return icon.set('x', x).set('y', y).set('home', homeCoords);
+      });
+
+      return state.set('icons', icons);
+    }
+
+    case UPDATE_TARGET: {
+      const [id, selected] = action.iconTarget;
+
+      const targetType = selected ? 'target' : 'home';
+      const index = state.get('icons').findIndex((icon) => (icon.get('id') === id));
+      const target = state.getIn(['icons', index, targetType]);
+      console.log(target);
+      console.log(state.getIn(['icons', index, 'target']));
+      console.log(state.getIn(['icons', index]));
+      return state.setIn(['icons', index, 'target'], target);
+    }
     default:
       return state;
   }
