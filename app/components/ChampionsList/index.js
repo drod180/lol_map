@@ -6,7 +6,6 @@ import ListItem from 'components/ListItem';
 import ChampionFilterItem from 'containers/ChampionFilterItem';
 
 function ChampionsList(props) {
-
   if (props.champions.length === 0) {
     const ErrorComponent = () => (
       <ListItem item={'No Champions :('} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Img from './Img';
+import Image from './Image';
 
 function importAll(r) {
   const images = {};
@@ -12,21 +12,24 @@ function importAll(r) {
 }
 
 //  Imports all images that end with _Icon.png/jpeg/jpg/svg
+// <circle cx={props.x} cy={props.y} r="6" />;
 const images = importAll(require.context('../../images/', false, /(_Icon)\.(png|jpe?g|svg)/));
 
-function ChampIcon(props) {
+function ChampMapIcon(props) {
   return (
-    <Img
+    <Image
+      x={props.x}
+      y={props.y}
       src={images[props.src]}
-      selected={props.selected}
-      alt="champion - icon"
-    />
+    >
+    </Image>
   );
 }
 
-ChampIcon.propTypes = {
-  src: PropTypes.string,
-  selected: PropTypes.bool,
+ChampMapIcon.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  src: PropTypes.string.isRequired,
 };
 
-export default ChampIcon;
+export default ChampMapIcon;

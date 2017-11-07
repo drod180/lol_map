@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
+import { updateTarget } from 'containers/ChampionMapItem/actions';
 import ListItem from 'components/ListItem';
 import Wrapper from './Wrapper';
 import ChampIcon from './ChampIcon';
@@ -18,7 +19,7 @@ import { toggleChampionSelect } from '../App/actions';
 export class ChampFilterItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const item = this.props.item;
-    const toggleIcon = () => { this.props.onIconClick(item.id); };
+    const toggleIcon = () => { this.props.onIconClick(item.id, item.selected); };
     // Put together the content of the champion icon
     const content = (
       <Wrapper>
@@ -52,8 +53,9 @@ ChampFilterItem.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onIconClick: (id) => {
+    onIconClick: (id, selected) => {
       dispatch(toggleChampionSelect(id));
+      dispatch(updateTarget([id, !selected]));
     },
   };
 }

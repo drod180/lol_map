@@ -15,6 +15,7 @@ const makeSelectLocation = () => createSelector(
 );
 
 export {
+  selectGlobal,
   makeSelectLocation,
   makeSelectChampions,
 };

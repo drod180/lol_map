@@ -35,4 +35,22 @@ injectGlobal`
   .champ-icon-button:focus img {
     border: 3px solid #E59700;
   }
+
+  .map-container, .map-filter{
+    position: relative;
+  }
+  .map-image, .map-items {
+    position: absolute;
+  }
+
+  .map-image {
+    width: 100%;
+  }
+
+  .map-section-top-left {
+    width: 5%;
+    height: 5%;
+    top: 10%;
+    left: 10%;
+  }
 `;
