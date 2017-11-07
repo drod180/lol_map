@@ -23,7 +23,6 @@ function ChampMapIcon(props) {
         y={props.y}
         src={images[props.src]}
       />
-
     </g>
   );
 }
