@@ -18,6 +18,7 @@ import {
   START_ICONS,
   UPDATE_DIMS,
   UPDATE_HOME,
+  UPDATE_MAP_TARGETS,
   UPDATE_TARGET,
 } from './constants';
 
@@ -39,16 +40,36 @@ const getTargetDir = (x, y, [tx, ty]) => {
 const updateVelocity = (x, y, [tx, ty]) => {
   let [nx, ny] = getTargetDir(x, y, [tx, ty]);
   const size = Math.sqrt((nx * nx) + (ny * ny));
-  nx /= (size / 20);
-  ny /= (size / 20);
+  let multiplier = 0;
+  if (size !== 0) {
+    nx /= (size / 20);
+    ny /= (size / 20);
+    multiplier = 30 / size;
+  } else {
+    nx = 0;
+    ny = 0;
+  }
 
-  const multiplier = 30 / size;
   nx -= (nx * multiplier);
   ny -= (ny * multiplier);
   return [nx, ny];
 };
 
-const getHomeCoords = (i, height, width) => {
+const getMapCoords = (location, width, height) => {
+  // Map locations as percentages for map position
+  const locations = {
+    shadowIsles: [5, 5],
+    freljord: [48, 8],
+    piltover: [60, 16],
+    zaun: [63, 18],
+    noxus: [70, 45],
+    ionia: [90, 20],
+  };
+
+  return [(locations[location][0] * width) / 100, (locations[location][1] * height) / 100];
+};
+
+const getHomeCoords = (i, width, height) => {
   let homeX = 0;
   let homeY = 0;
   if (i % 4 === 0) {
@@ -70,23 +91,45 @@ const getHomeCoords = (i, height, width) => {
 
 const buildIcon = (id, homeCoords, mapTarget) => ({
   id,
-  x: homeCoords[0],
-  y: homeCoords[1],
+  x: mapTarget[0],
+  y: mapTarget[1],
   vector: [0, 0],
   home: homeCoords,
   mapTarget,
   target: mapTarget,
-  location: 'home',
+  location: 'mapTarget',
 });
 
-const checkLocation = (x, y, home, target) => {
-  if (x === home[0] && y === home[1]) {
-    return 'home';
-  } else if (x === target[0] && y === target[1]) {
-    return 'map';
+const checkLocation = (vx, vy, target, home) => {
+  if (Math.abs(vx) <= 0.01 && Math.abs(vy) <= 0.01) {
+    return target === home ? 'home' : 'mapTarget';
   }
 
   return 'moving';
+};
+
+const updateMapPoint = (state, mapPointStr, callback, callbackArg) => {
+  const height = state.get('height');
+  const width = state.get('width');
+  const icons = state.get('icons').map((icon, i) => {
+    const cbArg = callbackArg || i;
+    let mapPoint = callback(cbArg, width, height);
+    let x = icon.get('x');
+    let y = icon.get('y');
+    // Allow the icon to move with map as it scales
+    if (icon.get('location') === mapPointStr) {
+      [x, y] = mapPoint;
+    }
+
+    mapPoint = fromJS(mapPoint);
+    // Set the target to new map value if that is current target
+    if (icon.get('target').equals(icon.get(mapPointStr))) {
+      return icon.set('x', x).set('y', y).set(mapPointStr, mapPoint).set('target', mapPoint);
+    }
+    return icon.set('x', x).set('y', y).set(mapPointStr, mapPoint);
+  });
+
+  return state.set('icons', icons);
 };
 
 function mapReducer(state = initialState, action) {
@@ -96,8 +139,9 @@ function mapReducer(state = initialState, action) {
       const currentIcons = state.get('icons').map((icon) => (icon.get('id')));
       for (let i = 0; i < action.champIds.length; i += 1) {
         if (!currentIcons.includes(action.champIds[i].id)) {
-          const homeCoords = getHomeCoords(i, state.get('height'), state.get('width'));
-          const icon = buildIcon(action.champIds[i].id, homeCoords, [Math.random() * 300, Math.random() * 300]);
+          const homeCoords = getHomeCoords(i, state.get('width'), state.get('height'));
+          const mapTarget = getMapCoords('zaun', state.get('width'), state.get('height'));
+          const icon = buildIcon(action.champIds[i].id, homeCoords, mapTarget);
           newIcons.push(icon);
         }
       }
@@ -120,7 +164,8 @@ function mapReducer(state = initialState, action) {
         const y = icon.get('y');
         const newX = x + (vx * multiplier);
         const newY = y + (vy * multiplier);
-        const location = checkLocation(newX, newY, icon.get('home'), icon.get('target'));
+        const location = checkLocation(vx, vy, icon.get('target'), icon.get('home'));
+
         return icon.set('x', newX).set('y', newY).set('vector', [vx, vy]).set('location', location);
       });
 
@@ -138,20 +183,11 @@ function mapReducer(state = initialState, action) {
       return state.set('width', action.width).set('height', action.height);
 
     case UPDATE_HOME: {
-      const height = state.get('height');
-      const width = state.get('width');
-      const icons = state.get('icons').map((icon, i) => {
-        const homeCoords = getHomeCoords(i, height, width);
-        let x = icon.get('x');
-        let y = icon.get('y');
-        if (icon.get('location') === 'home') {
-          x = homeCoords[0];
-          y = homeCoords[1];
-        }
-        return icon.set('x', x).set('y', y).set('home', homeCoords);
-      });
+      return updateMapPoint(state, 'home', getHomeCoords);
+    }
 
-      return state.set('icons', icons);
+    case UPDATE_MAP_TARGETS: {
+      return updateMapPoint(state, 'mapTarget', getMapCoords, 'zaun');
     }
 
     case UPDATE_TARGET: {

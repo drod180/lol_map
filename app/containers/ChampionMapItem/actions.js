@@ -22,6 +22,7 @@ import {
   STOP_ICONS,
   UPDATE_DIMS,
   UPDATE_HOME,
+  UPDATE_MAP_TARGETS,
   UPDATE_TARGET,
 } from './constants';
 
@@ -62,6 +63,12 @@ export function updateDimensions(width, height) {
 export function updateHomeCoords() {
   return {
     type: UPDATE_HOME,
+  };
+}
+
+export function updateMapTargets() {
+  return {
+    type: UPDATE_MAP_TARGETS,
   };
 }
 
