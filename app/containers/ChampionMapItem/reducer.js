@@ -14,6 +14,7 @@ import { fromJS } from 'immutable';
 import {
   CREATE_ICONS,
   MOVE_ICONS,
+  OPEN_MODAL,
   STOP_ICONS,
   START_ICONS,
   UPDATE_DIMS,
@@ -171,7 +172,9 @@ function mapReducer(state = initialState, action) {
 
       return state.set('icons', icons).set('lastFrameTime', new Date());
     }
-
+    case OPEN_MODAL:
+      console.log('open', action.id);
+      return state;
     case STOP_ICONS:
       return state.set('moving', false);
 
