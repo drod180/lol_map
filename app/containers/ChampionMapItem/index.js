@@ -8,7 +8,6 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import ChampMapIconList from 'components/ChampMapIconList';
 import MapImage from 'components/MapImage';
-import ChampionLoreModal from 'components/ChampionLoreModal';
 import { createIcons, moveIcons, stopIcons, startIcons, openModal } from './actions';
 import { makeSelectMapIcons, makeSelectMapWidth, makeSelectMapHeight, makeSelectIconsMoving } from './selectors';
 import reducer from './reducer';
@@ -78,7 +77,6 @@ export class ChampionMapItem extends React.PureComponent {
         style={{ overflow: 'hidden', height: this.props.mapHeight, width: this.props.mapWidth }}
         className="map-container"
       >
-        <ChampionLoreModal id={1} />
         <MapImage />
         <div className="map-items">
           <svg

@@ -20,6 +20,7 @@ import injectSaga from 'utils/injectSaga';
 import { makeSelectChampions } from 'containers/App/selectors';
 import ChampionsList from 'components/ChampionsList';
 import ChampionMapItem from 'containers/ChampionMapItem';
+import LoreModalItem from 'containers/LoreModalItem';
 import { updateDimensions } from 'containers/ChampionMapItem/actions';
 // import reducer from './reducer';
 import saga from './saga';
@@ -48,6 +49,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           <title>League of Legends - Lore Map</title>
           <meta name="description" content="A runeaterra map" />
         </Helmet>
+        <LoreModalItem />
         <div id="map-section" ref={(c) => { this.mapSection = c; }}>
           <ChampionMapItem champions={this.props.champions} />
         </div>

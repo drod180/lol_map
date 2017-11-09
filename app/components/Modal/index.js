@@ -1,11 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Overlay from './Overlay';
+import StyledModal from './StyledModal';
+
 
 function Modal(props) {
-  return (
-    <div className="modal-overlay">
+  const content = (
+    <StyledModal className="modal-section">
       {props.content}
-    </div>
+    </StyledModal>
+  );
+  return (
+    <Overlay className="modal-overlay" modal={content} >
+    </Overlay>
   );
 }
 
