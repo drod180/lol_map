@@ -9,10 +9,11 @@ const ChampionName = styled(Img)`
   height: 45px;
   display: inline-block;
   float: right;
-  opacity: 0.8;
+  opacity: 0.7;
 
   &:hover {
-    opacity: 0.6;
+    transform: scale(1.3) rotate(180deg);
+    transition: transform 250ms ease;
     cursor: pointer;
   }
 
