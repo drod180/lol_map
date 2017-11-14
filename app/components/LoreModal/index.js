@@ -17,7 +17,6 @@ function LoreModal(props) {
     </div>
   );
 
-  const theme = "mediumsagreen";
   return (
     <Modal className="modal-overlay" content={content} backgroundColor={'rgba(0,255,0,1)'} >
     </Modal>

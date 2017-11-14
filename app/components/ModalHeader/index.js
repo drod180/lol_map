@@ -13,9 +13,12 @@ import image from './close_x.png';
 
 function ModalHeader(props) {
   return (
-    <div role="presentation" onClick={() => { props.callback(); }} >
+    <div role="presentation">
       <ChampionName>{props.champName}</ChampionName>
-      <CloseIcon alt={"close-modal-icon"} src={image}/>
+      <CloseIcon
+        image={image}
+        callback={props.callback}
+      />
     </div>
   );
 }

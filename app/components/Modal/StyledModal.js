@@ -7,7 +7,7 @@ const StyledModal = styled.div`
   height: 80%;
   width: 80%;
   z-index: 20;
-  background: ${ (props) => (props.backgroundColor || 'rgba(255,255,255,1)') };
+  background: ${(props) => (props.backgroundColor || 'rgba(255,255,255,1)')};
 `;
 
 export default StyledModal;
