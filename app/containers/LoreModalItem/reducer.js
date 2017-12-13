@@ -22,7 +22,7 @@ const initialState = fromJS({
   source: 'https://www.google.com',
   name: 'Dan The Man Jr.',
   title: 'The Real Story',
-  display: true,
+  display: false,
 });
 
 function homeReducer(state = initialState, action) {
@@ -33,7 +33,7 @@ function homeReducer(state = initialState, action) {
     case OPEN_MODAL:
       return state
         .set('display', true)
-        .set('name', action.id);
+        .set('name', action.id.toString());
     default:
       return state;
   }

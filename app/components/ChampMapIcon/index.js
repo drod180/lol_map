@@ -12,7 +12,6 @@ function importAll(r) {
 }
 
 //  Imports all images that end with _Icon.png/jpeg/jpg/svg
-// <circle cx={props.x} cy={props.y} r="6" />;
 const images = importAll(require.context('../../images/', false, /(_Icon)\.(png|jpe?g|svg)/));
 
 function ChampMapIcon(props) {
