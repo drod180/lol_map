@@ -8,7 +8,6 @@ import LoreSource from './Source';
 
 
 export default function LoreModal(props) {
-  console.log(props.open);
   const content = (
     <div>
       <Header champName={props.champName} callback={props.callback} />
