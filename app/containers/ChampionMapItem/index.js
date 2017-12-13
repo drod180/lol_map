@@ -11,6 +11,7 @@ import MapImage from 'components/MapImage';
 import { createIcons, moveIcons, stopIcons, startIcons } from './actions';
 import { makeSelectMapIcons, makeSelectMapWidth, makeSelectMapHeight, makeSelectIconsMoving } from './selectors';
 import reducer from './reducer';
+import { openModal } from '../LoreModalItem/actions';
 
 
 export class ChampionMapItem extends React.PureComponent {
@@ -57,7 +58,6 @@ export class ChampionMapItem extends React.PureComponent {
     if (this.props.iconsMoving) {
       this.props.stopIcons();
     }
-
     window.cancelAnimationFrame(this.animationFrameId);
   }
 
@@ -68,9 +68,9 @@ export class ChampionMapItem extends React.PureComponent {
       champMapIcons[i] = {
         ...champMapIcons[i],
         champions: this.props.champions[i],
+        callback: this.props.openModal,
       };
     }
-
     return (
       <div
         role="presentation"
@@ -104,12 +104,14 @@ ChampionMapItem.propTypes = {
   iconsMoving: PropTypes.bool.isRequired,
   createIcons: PropTypes.func.isRequired,
   champions: PropTypes.array.isRequired,
+  openModal: PropTypes.func.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
-    createIcons: (num, x, y) => dispatch(createIcons(num, x, y)),
+    createIcons: (champIds) => dispatch(createIcons(champIds)),
     moveIcons: () => dispatch(moveIcons()),
+    openModal: (id) => dispatch(openModal(id)),
     stopIcons: () => dispatch(stopIcons()),
     startIcons: () => dispatch(startIcons()),
   };
