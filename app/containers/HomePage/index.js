@@ -13,7 +13,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-// import { findDOMNode } from 'react-dom';
+
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import injectSaga from 'utils/injectSaga';
@@ -22,7 +22,7 @@ import ChampionsList from 'components/ChampionsList';
 import ChampionMapItem from 'containers/ChampionMapItem';
 import LoreModalItem from 'containers/LoreModalItem';
 import { updateDimensions } from 'containers/ChampionMapItem/actions';
-// import reducer from './reducer';
+
 import saga from './saga';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

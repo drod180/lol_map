@@ -8,9 +8,10 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import ChampMapIconList from 'components/ChampMapIconList';
 import MapImage from 'components/MapImage';
-import { createIcons, moveIcons, stopIcons, startIcons, openModal } from './actions';
+import { createIcons, moveIcons, stopIcons, startIcons } from './actions';
 import { makeSelectMapIcons, makeSelectMapWidth, makeSelectMapHeight, makeSelectIconsMoving } from './selectors';
 import reducer from './reducer';
+import { openModal } from '../LoreModalItem/actions';
 
 
 export class ChampionMapItem extends React.PureComponent {

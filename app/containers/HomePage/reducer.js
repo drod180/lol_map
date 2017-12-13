@@ -23,7 +23,6 @@ function homeReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_CHAMPIONS:
 
-      // Delete prefixed '@' from the github username
       return state
         .set('champions', action.name);
     default:

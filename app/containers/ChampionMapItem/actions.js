@@ -18,7 +18,6 @@
 import {
   CREATE_ICONS,
   MOVE_ICONS,
-  OPEN_MODAL,
   START_ICONS,
   STOP_ICONS,
   UPDATE_DIMS,
@@ -77,12 +76,5 @@ export function updateTarget(iconTarget) {
   return {
     type: UPDATE_TARGET,
     iconTarget,
-  };
-}
-
-export function openModal(id) {
-  return {
-    type: OPEN_MODAL,
-    id,
   };
 }

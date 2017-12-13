@@ -11,7 +11,6 @@
 
 export const CREATE_ICONS = 'lol_map/Map/CREATE_ICONS';
 export const MOVE_ICONS = 'lol_map/Map/MOVE_ICONS';
-export const OPEN_MODAL = 'lol_map/Map/OPEN_MODAL';
 export const START_ICONS = 'lol_map/Map/START_ICONS';
 export const STOP_ICONS = 'lol_map/Map/STOP_ICONS';
 export const UPDATE_DIMS = 'lol_map/Map/UPDATE_DIMS';

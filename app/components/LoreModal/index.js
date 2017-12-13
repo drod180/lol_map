@@ -7,18 +7,19 @@ import Title from './Title';
 import LoreSource from './Source';
 
 
-function LoreModal(props) {
+export default function LoreModal(props) {
+  console.log(props.open);
   const content = (
     <div>
       <Header champName={props.champName} callback={props.callback} />
       <Title>{props.title}</Title>
       <LoreText>{props.lore}</LoreText>
-      <LoreSource>{`Source: ${props.source}`}</LoreSource>
+      <LoreSource source={props.source} />
     </div>
   );
 
   return (
-    <Modal className="modal-overlay" content={content} backgroundColor={'rgba(0,255,0,1)'} >
+    <Modal open={props.open} className="modal-overlay" content={content} backgroundColor={'rgba(0,255,0,1)'} >
     </Modal>
   );
 }
@@ -29,6 +30,5 @@ LoreModal.propTypes = {
   source: PropTypes.string,
   champName: PropTypes.string,
   callback: PropTypes.func,
+  open: PropTypes.bool,
 };
-
-export default LoreModal;
