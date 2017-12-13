@@ -171,7 +171,6 @@ function mapReducer(state = initialState, action) {
 
       return state.set('icons', icons).set('lastFrameTime', new Date());
     }
-
     case STOP_ICONS:
       return state.set('moving', false);
 

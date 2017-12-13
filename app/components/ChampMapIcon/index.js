@@ -17,12 +17,13 @@ const images = importAll(require.context('../../images/', false, /(_Icon)\.(png|
 
 function ChampMapIcon(props) {
   return (
-    <Image
-      x={props.x}
-      y={props.y}
-      src={images[props.src]}
-    >
-    </Image>
+    <g onClick={() => { props.callback(props.id); }}>
+      <Image
+        x={props.x}
+        y={props.y}
+        src={images[props.src]}
+      />
+    </g>
   );
 }
 
@@ -30,6 +31,8 @@ ChampMapIcon.propTypes = {
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   src: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  callback: PropTypes.func.isRequired,
 };
 
 export default ChampMapIcon;
