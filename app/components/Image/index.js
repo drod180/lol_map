@@ -2,7 +2,7 @@
  *
  * Image.js
  *
- * Renders an image, enforcing the usage of the alt="" tag
+ * Renders an svg image, enforcing the usage of the alt="" tag
  */
 
 import React from 'react';
